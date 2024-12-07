@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urban Emotion Collage - Interactive Experience</title>
+  <link href="./css5_1.css"
+    rel="stylesheet" />
+  <script src="draggabilly.pkgd.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Roboto", sans-serif;
+      background-image: url("./photo/bg.jpg");
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .search-bar {
+      display: flex;
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-bar input {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      width: 200px;
+    }
+
+    .search-bar button {
+      padding: 10px 20px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .collage-item {
+      position: absolute;
+      transition: all 0.4s ease;
+      cursor: move;
+    }
+
+    .collage-item:hover {
+      transform: scale(1.1) rotate(0deg) !important;
+      z-index: 100;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .collage-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      border: 10px solid white;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .label {
+      position: absolute;
+      bottom: -30px;
+      left: 0;
+      right: 0;
+      padding: 5px;
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal:target {
+      display: flex;
+    }
+    nav {
+      text-align: center;
+      margin: 5px 0;
+    }
+
+    nav a {
+      color: #4caf50;
+      text-decoration: none;
+      font-size: 1.2em;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+    }
+
+    nav a.active {
+      font-weight: bold;
+      border-bottom: 2px solid #4caf50;
+    }
+
+    nav a:hover {
+      color: #388e3c;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="search-bar">
+    <div>
+      <input type="text" id="searchInput" placeholder="Search..." />
+      <button onclick="searchImages()">Search</button>
+    </div>
+    <div>
+      <nav>
+        <a href="main.html">Go to Home Page</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Collage Items -->
+
+    
+
+    <div class="collage-item" style="top: 10%; left: 25%; width: 220px">
+      <img src="./20241203204112.jpg" alt="Bridge" onclick="showModal(this.src)" />
+      <div class="label" onclick="editLabel(this)">Emotional Map</div>
+    </div>
+
+
+
+    <div class="collage-item" style="top: 5%; left: 10%; width: 220px">
+      <img src="photo/bridge.png" alt="Bridge" onclick="showModal(this.src)" />
+      <div class="label" onclick="editLabel(this)">Bridge</div>
+    </div>
+
+
+
+
+    <div class="collage-item" style="top: 15%; left: 40%; width: 280px">
+      <img src="photo/building.png" alt="Empire State Building" onclick="showModal(this.src)" />
+      <div class="label" onclick="editLabel(this)">Empire State Building</div>
+    </div>
+    <div class="collage-item" style="top: 50%; left: 10%; width: 200px">
+      <img src="photo/centralpark.png" alt="Central Park" onclick="showModal(this.src)" />
+      <div class="label" onclick="editLabel(this)">Central Park</div>
+    </div>
+    <div class="collage-item" style="top: 10%; left: 70%; width: 200px">
+      <img src="photo/garden.png" alt="Garden" onclick="showModal(this.src)" />
+      <div class="label" onclick="editLabel(this)">Garden</div>
+    </div>
+    <div class="collage-item" style="top: 45%; left: 50%; width: 260px">
+      <img src="photo/goddess.png" alt="Statue of Liberty" onclick="showModal(this.src)" />
+      <div class="label" onclick="editLabel(this)">Statue of Liberty</div>
+    </div>
+    <div class="collage-item" style="top: 35%; left: 70%; width: 260px">
+      <img src="p1.jpg" alt="Five Symbols" onclick="showModal(this.src)" />
+      <div class="label" onclick="editLabel(this)">Five Symbols</div>
+    </div>
+
+
+    <div class="collage-item" style="top: 28%; left: 85%; width: 260px">
+      <img src="20241203204718.jpg" alt="Empire State Building" onclick="showModal(this.src)" />
+      <div class="label" onclick="editLabel(this)">Empire State Building</div>
+    </div>
+
+
+
+    
+
+  </div>
+
+  <div class="modal" id="imageModal" onclick="hideModal()">
+    <img id="modalImage" src="" alt="Enlarged View" />
+  </div>
+
+  <script>
+    const collageItems = document.querySelectorAll(".collage-item");
+    collageItems.forEach((item) => {
+      new Draggabilly(item, { containment: ".container" });
+    });
+
+    function searchImages() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      collageItems.forEach((item) => {
+        const label = item.querySelector(".label").textContent.toLowerCase();
+        if (label.includes(query)) {
+          item.style.display = "block";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    }
+
+    function editLabel(element) {
+      const currentText = element.textContent;
+      const newText = prompt("Edit label:", currentText);
+      if (newText !== null && newText.trim() !== "") {
+        element.textContent = newText.trim();
+      }
+    }
+
+    function showModal(src) {
+      const modal = document.getElementById("imageModal");
+      const modalImage = document.getElementById("modalImage");
+      modalImage.src = src;
+      modal.style.display = "flex";
+    }
+
+    function hideModal() {
+      const modal = document.getElementById("imageModal");
+      modal.style.display = "none";
+    }
+  </script>
+</body>
+
+</html>
